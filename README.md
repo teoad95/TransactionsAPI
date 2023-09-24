@@ -40,7 +40,7 @@ Before you can start using the TransactionsAPI, ensure you have the following pr
 1. Clone this repository to your local machine:
 
    ```shell
-   git clone [https://github.com/your/repo.git](https://github.com/teoad95/TransactionsAPI.git)
+   git clone [https://github.com/teoad95/TransactionsAPI.git]
 2. Navigate to the project directory
 3. Configure your SQL Server connection string in the appsettings.json file and run the update database command through the Package Manager Console in order to create your database.
 
