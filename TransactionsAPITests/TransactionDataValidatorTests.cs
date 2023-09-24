@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Net;
-using TransactionsAPI.Models.DTO;
+﻿using TransactionsAPI.Models.DTO;
 using TransactionsAPI.Models.Validators;
 using Xunit;
 
