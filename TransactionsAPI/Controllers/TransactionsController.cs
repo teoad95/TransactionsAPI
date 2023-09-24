@@ -38,7 +38,7 @@ namespace TransactionsAPI.Controllers
             {
                 if (file == null || file.Length == 0)
                     return new APIResponse(HttpStatusCode.BadRequest, false, new List<string>() { "File not selected or empty." }, null);
-                
+
 
                 using (var reader = new StreamReader(file.OpenReadStream()))
                 using (var csv = new CsvReader(reader, new CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true }))
@@ -75,6 +75,27 @@ namespace TransactionsAPI.Controllers
             }
         }
 
+        [HttpGet(Name = "GetTransactions")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<APIResponse>> GetTransactions(int pageSize = 10, int pageNumber = 1)
+        {
+            try
+            {
+                if (pageSize < 1 || pageNumber < 1)
+                    return new APIResponse(HttpStatusCode.BadRequest, false, new List<string>() { "Both the size and the number of the pages should be greater than 1." }, null);
+
+                var transactions = await _db.GetAllAsync(pageSize, pageNumber);
+
+                return Ok(new APIResponse(HttpStatusCode.OK, true, null, transactions));
+            }
+            catch (Exception e)
+            {
+                return new APIResponse(HttpStatusCode.BadRequest, false, new List<string>() { e.ToString() }, null);
+            }
+
+        }
+
         [HttpGet("{id:Guid}", Name = "GetTransaction")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -85,12 +106,12 @@ namespace TransactionsAPI.Controllers
             {
                 if (id == null || id == Guid.Empty)
                     return new APIResponse(HttpStatusCode.BadRequest, false, new List<string>() { "Use a valid Guid." }, null);
-                
+
 
                 var transaction = await _db.GetAsync(id);
                 if (transaction == null)
                     return new APIResponse(HttpStatusCode.NotFound, false, new List<string>() { $"Unable to find a transaction with this Id = {id}." }, null);
-                
+
 
                 return Ok(new APIResponse(HttpStatusCode.OK, true, null, transaction));
             }
@@ -111,7 +132,7 @@ namespace TransactionsAPI.Controllers
             {
                 if (id == null || id == Guid.Empty)
                     return new APIResponse(HttpStatusCode.BadRequest, false, new List<string>() { "Use a valid Guid." }, null);
-                
+
 
                 var transaction = await _db.GetAsync(id);
                 if (transaction == null)

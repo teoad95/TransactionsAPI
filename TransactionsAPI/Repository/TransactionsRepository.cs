@@ -14,14 +14,17 @@ namespace TransactionsAPI.Repository
             _db = db;
         }
 
-        public async Task<ICollection<Transaction>> GetAllAsync()
+        public async Task<ICollection<Transaction>> GetAllAsync(int pageSize = 10, int pageNumber = 1)
         {
-            return await _db.Transactions.ToListAsync();
+            if (pageSize < 1 || pageNumber < 1)
+                return null;
+            return await _db.Transactions.OrderByDescending(x => x.Inception).Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync();
+
         }
 
         public async Task<Transaction?> GetAsync(Guid Id)
         {
-            return await _db.Transactions.FirstOrDefaultAsync(x=> x.Id == Id);
+            return await _db.Transactions.FirstOrDefaultAsync(x => x.Id == Id);
         }
 
         public async Task CreateAsync(Transaction entity)
