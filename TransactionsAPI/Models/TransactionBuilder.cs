@@ -13,9 +13,8 @@ namespace TransactionsAPI.Models
             transaction.ApplicationName = transactionInsertData.ApplicationName;
             transaction.Filename = transactionInsertData.Filename;
             transaction.Email = transactionInsertData.Email;
-            if (!string.IsNullOrEmpty(transactionInsertData.Url) &&
-                Uri.TryCreate(transactionInsertData.Url, UriKind.Absolute, out var validURI))
-                transaction.Url = validURI;
+            if (!string.IsNullOrEmpty(transactionInsertData.Url))
+                transaction.Url = new Uri(transactionInsertData.Url);
             if (!string.IsNullOrEmpty(transactionInsertData.Inception))
                 transaction.Inception = DateTime.ParseExact(transactionInsertData.Inception, "M/d/yyyy", CultureInfo.InvariantCulture);
             transaction.Amount = decimal.Parse(transactionInsertData.Amount.Substring(1));
