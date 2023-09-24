@@ -14,7 +14,7 @@ namespace TransactionsAPI.Repository
             _db = db;
         }
 
-        public async Task<ICollection<Transaction>> GetAllAsync(int pageSize = 10, int pageNumber = 1)
+        public async Task<List<Transaction>> GetAllAsync(int pageSize = 10, int pageNumber = 1)
         {
             if (pageSize < 1 || pageNumber < 1)
                 return null;

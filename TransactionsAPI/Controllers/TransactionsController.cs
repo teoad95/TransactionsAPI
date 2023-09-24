@@ -65,7 +65,7 @@ namespace TransactionsAPI.Controllers
 
                     }
 
-                    return Ok(new APIResponse(HttpStatusCode.OK, true, problematicTransactions, "CSV file uploaded and processed."));
+                    return new APIResponse(HttpStatusCode.OK, true, problematicTransactions, "CSV file uploaded and processed.");
                 }
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace TransactionsAPI.Controllers
 
                 var transactions = await _db.GetAllAsync(pageSize, pageNumber);
 
-                return Ok(new APIResponse(HttpStatusCode.OK, true, null, transactions));
+                return new APIResponse(HttpStatusCode.OK, true, null, transactions);
             }
             catch (Exception e)
             {
@@ -113,7 +113,7 @@ namespace TransactionsAPI.Controllers
                     return new APIResponse(HttpStatusCode.NotFound, false, new List<string>() { $"Unable to find a transaction with this Id = {id}." }, null);
 
 
-                return Ok(new APIResponse(HttpStatusCode.OK, true, null, transaction));
+                return new APIResponse(HttpStatusCode.OK, true, null, transaction);
             }
             catch (Exception e)
             {
@@ -139,7 +139,7 @@ namespace TransactionsAPI.Controllers
                     return new APIResponse(HttpStatusCode.NotFound, false, new List<string>() { $"Unable to find a transaction with this Id = {id}." }, null);
 
                 await _db.DeleteAsync(transaction);
-                return Ok(new APIResponse(HttpStatusCode.NoContent, true, null, transaction));
+                return new APIResponse(HttpStatusCode.NoContent, true, null, null);
             }
             catch (Exception e)
             {
@@ -173,7 +173,7 @@ namespace TransactionsAPI.Controllers
                     return new APIResponse(HttpStatusCode.BadRequest, false, new List<string>() { $"Error: Unable to handle transaction with id = {id} due to {e.Message}, \n" }, null);
                 }
 
-                return Ok(new APIResponse(HttpStatusCode.OK, true, null, updatedTransaction));
+                return new APIResponse(HttpStatusCode.OK, true, null, updatedTransaction);
             }
             catch (Exception e)
             {
