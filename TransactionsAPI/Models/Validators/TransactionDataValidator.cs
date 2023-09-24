@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
 using TransactionsAPI.Models.DTO;
 using TransactionsAPI.Models.Validators.Interfaces;

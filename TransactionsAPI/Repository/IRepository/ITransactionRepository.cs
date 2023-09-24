@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using TransactionsAPI.Models;
+﻿using TransactionsAPI.Models;
 
 namespace TransactionsAPI.Repository.IRepository
 {
