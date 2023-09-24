@@ -8,5 +8,13 @@ namespace TransactionsAPI.Models
         public bool IsSuccess { get; set; }
         public List<string> ErrorMessages = new List<string>();
         public object Result { get; set; }
+
+        public APIResponse(HttpStatusCode statusCode, bool isSuccess, List<string> errorMessages , object result)
+        {
+            StatusCode = statusCode;
+            IsSuccess = isSuccess;
+            ErrorMessages = errorMessages;
+            Result = result;
+        }
     }
 }
